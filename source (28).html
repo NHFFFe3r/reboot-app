@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reboot - Apoyo Emocional</title>
+    <style>
+        :root {
+            --primary: #87CEEB;
+            --primary-dark: #4682B4;
+            --secondary: #1E90FF;
+            --accent: #00BFFF;
+            --light: #FFFFFF;
+            --dark: #333333;
+            --danger: #FF6B6B;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F9FA;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 70px;
+        }
+        
+        .screen {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-dark);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-light {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .emergency-btn {
+            background: linear-gradient(to right, #FF6B6B, #FF8E8E);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .emotion-option {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100px;
+        }
+        
+        .emotion-emoji {
+            font-size: 30px;
+        }
+        
+        .journal-page {
+            min-height: 300px;
+            border: 1px dashed #87CEEB;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .journal-textarea {
+            width: 100%;
+            min-height: 250px;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 15px;
+            background-color: #F5F9FA;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+        }
+        
+        .story-card {
+            background-color: #F5F9FA;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .story-title {
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-size: 18px;
+        }
+        
+        .chat-message {
+            background-color: #F5F9FA;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .user-message {
+            background-color: #E1F0F7;
+            margin-left: 20px;
+        }
+        
+        .guide-message {
+            background-color: #FFFFFF;
+            border: 1px solid #E1F0F7;
+            margin-right: 20px;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+        
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 4s ease-in-out;
+        }
+        
+        .breathing-instruction {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        
+        .community-user {
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+    </style>
+<style type="text/css">
+.grande { font-size: 60px; }
+</style>
+<script>
+// Escribir aqui el código Javascript
+</script>
+</head>
+<body>
+    <div class="container">
+        <!-- Pantalla de Bienvenida -->
+        <div id="welcome-screen" class="screen active">
+            <h1>Bienvenido a Reboot</h1>
+            <img src="https://images.unsplash.com/photo-1579547945413-497e1b99dac0?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="Logo Reboot" style="width:100%; border-radius:10px;">
+            <button class="btn btn-primary" onclick="showScreen('emotion-check-screen')">Comenzar</button>
+        </div>
+        
+        <!-- Check-in emocional -->
+        <div id="emotion-check-screen" class="screen">
+            <h2>¿Cómo te sientes hoy?</h2>
+            <div style="text-align:center;">
+                <div class="emotion-option" onclick="selectEmotion('enojado')">
+                    <div class="emotion-emoji">😡</div>
+                    <div>Enojado</div>
+                </div>
+                <div class="emotion-option" onclick="selectEmotion('confundido')">
+                    <div class="emotion-emoji">😕</div>
+                    <div>Confundido</div>
+                </div>
+                <div class="emotion-option" onclick="selectEmotion('triste')">
+                    <div class="emotion-emoji">😭</div>
+                    <div>Triste</div>
+                </div>
+                <div class="emotion-option" onclick="selectEmotion('neutral')">
+                    <div class="emotion-emoji">😐</div>
+                    <div>Neutral</div>
+                </div>
+                <div class="emotion-option" onclick="selectEmotion('bien')">
+                    <div class="emotion-emoji">😄</div>
+                    <div>Bien</div>
+                </div>
+                <div class="emotion-option" onclick="selectEmotion('feliz')">
+                    <div class="emotion-emoji">😁</div>
+                    <div>Feliz</div>
+                </div>
+            </div>
+            <button class="btn btn-light" onclick="showScreen('journal-screen')">Diario emocional</button>
+            <button class="btn btn-primary" onclick="showScreen('main-menu-screen')">Continuar</button>
+        </div>
+        
+        <!-- Diario emocional -->
+        <div id="journal-screen" class="screen">
+            <h2>Diario emocional</h2>
+            <div class="journal-page">
+                <textarea class="journal-textarea" placeholder="Escribe lo que sientas..." id="journal-entry"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="saveJournalEntry()">Guardar</button>
+            <button class="btn btn-light" onclick="showScreen('emotion-check-screen')">Volver</button>
+        </div>
+        
+        <!-- Menú principal -->
+        <div id="main-menu-screen" class="screen">
+            <h2>Menú Principal</h2>
+            <button class="btn emergency-btn" onclick="showScreen('emergency-screen')">Ayuda de Emergencia</button>
+            <button class="btn btn-secondary" onclick="showScreen('chat-screen')">Chat con Guía</button>
+            <button class="btn btn-accent" onclick="showScreen('community-screen')">Comunidad</button>
+            <button class="btn btn-primary" onclick="showScreen('mindroom-screen')">Mind Room</button>
+            <button class="btn btn-light" onclick="showScreen('parents-screen')">Padres/Docentes</button>
+            <button class="btn btn-primary" onclick="showScreen('breathing-screen')">Modo Respiro</button>
+        </div>
+        
+        <!-- Ayuda de emergencia -->
+        <div id="emergency-screen" class="screen">
+            <h2>¿Estás en un momento difícil?</h2>
+            <button class="btn emergency-btn" onclick="startChatWithGuide()">Hablar con un guía ahora</button>
+            <button class="btn btn-secondary" onclick="window.open('https://youtu.be/gQtQj9w7CBE', '_blank')">Video de respiración guiada</button>
+            <button class="btn btn-accent" onclick="alert('Modo seguro activado: Redes sociales bloqueadas por 1 hora')">Activar modo seguro</button>
+            <button class="btn btn-light" onclick="alert('Mensaje enviado a tu persona de confianza')">Contactar persona de confianza</button>
+            <div class="quote">
+                "Respira. Estás a salvo. Estamos aquí contigo."
+            </div>
+            <button class="btn btn-primary" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+        
+        <!-- Chat con guía -->
+        <div id="chat-screen" class="screen">
+            <h2>Habla con alguien que te escucha</h2>
+            <p>No estás solo. Un profesional te responderá pronto.</p>
+            
+            <div id="chat-container" style="max-height: 300px; overflow-y: auto; margin: 15px 0;">
+                <!-- Mensajes aparecerán aquí -->
+            </div>
+            
+            <button class="btn btn-light" onclick="insertQuickMessage('Estoy siendo acosado')">"Estoy siendo acosado"</button>
+            <button class="btn btn-light" onclick="insertQuickMessage('Siento que no puedo más')">"Siento que no puedo más"</button>
+            <button class="btn btn-light" onclick="insertQuickMessage('Solo quiero hablar')">"Solo quiero hablar"</button>
+            
+            <textarea id="chat-input" placeholder="Escribe tu mensaje..."></textarea>
+            <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+            <button class="btn btn-light" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+        
+        <!-- Comunidad -->
+        <div id="community-screen" class="screen">
+            <h2>Conecta. Comparte. Sana.</h2>
+            
+            <button class="btn btn-primary" onclick="showScreen('testimonials-screen')">Ver testimonios de superación</button>
+            <button class="btn btn-accent" onclick="showScreen('community-chat-screen')">Platica con más usuarios</button>
+            
+            <div class="quote">
+                "Aquí nadie juzga. Aquí todos estamos sanando."
+            </div>
+            
+            <button class="btn btn-light" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+        
+        <!-- Testimonios de superación -->
+        <div id="testimonials-screen" class="screen">
+            <h2>Testimonios de superación</h2>
+            
+            <div class="story-card">
+                <div class="story-title">Valiente Laura</div>
+                <p>Laura tenía 15 años y amaba dibujar. Un día, alguien se burló de uno de sus dibujos en redes sociales. Pronto, los insultos crecieron y Laura dejó de publicar, sintiéndose triste y sola.</p>
+                <p>Pero todo cambió cuando una desconocida le escribió: "No dejes que apaguen tu luz. Tus dibujos inspiran." Ese mensaje la hizo reaccionar. Habló con sus padres, denunció el acoso y recibió apoyo en la escuela.</p>
+                <p>Tiempo después, volvió a dibujar. Esta vez, con más fuerza. Abrió una nueva cuenta, compartiendo arte y mensajes de superación. Así, Laura transformó el dolor en esperanza para otros.</p>
+            </div>
+            
+            <button class="btn btn-primary" onclick="showScreen('community-screen')">Volver a Comunidad</button>
+        </div>
+        
+        <!-- Chat comunitario -->
+        <div id="community-chat-screen" class="screen">
+            <h2>Platica con más usuarios</h2>
+            
+            <div class="chat-message">
+                <div class="community-user">Usuario1</div>
+                <p>Hoy me siento muy abrumado y no sé cómo dejar de preocuparme. ¿Alguien tiene algún consejo para calmar la mente?</p>
+            </div>
+            
+            <div class="chat-message">
+                <div class="community-user">Usuario2</div>
+                <p>Hola, Usuario1. A mí me ayuda mucho hacer respiraciones lentas y profundas cuando me siento así. Intento inhalar contando hasta 4, aguantar 4 segundos y exhalar contando hasta 6. Prueba a hacerlo.</p>
+            </div>
+            
+            <div class="chat-message">
+                <div class="community-user">Usuario3</div>
+                <p>También a veces escribo todo lo que me preocupa en un papel, así lo saco de mi cabeza. Luego puedo verlo con más calma.</p>
+            </div>
+            
+            <textarea placeholder="Escribe tu mensaje..."></textarea>
+            <button class="btn btn-primary">Enviar</button>
+            <button class="btn btn-light" onclick="showScreen('community-screen')">Volver</button>
+        </div>
+        
+        <!-- Mind Room -->
+        <div id="mindroom-screen" class="screen">
+            <h2>Tu refugio emocional</h2>
+            
+            <button class="btn btn-secondary" onclick="window.open('https://youtu.be/gQtQj9w7CBE', '_blank')">Meditación guiada</button>
+            <button class="btn btn-accent" onclick="window.open('https://pin.it/Chr7O50sM', '_blank')">Dibujar lo que siento</button>
+            <button class="btn btn-primary" onclick="window.open('https://youtu.be/263Vb6xiifo', '_blank')">Sonidos relajantes</button>
+            
+            <div class="quote">
+                "Este espacio es solo tuyo. Respira. Vuelve a ti."
+            </div>
+            
+            <button class="btn btn-primary" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+        
+        <!-- Padres y docentes -->
+        <div id="parents-screen" class="screen">
+            <h2>Acompañar también es prevenir</h2>
+            
+            <div class="story-card">
+                <h3>¿Qué es el ciberbullying?</h3>
+                <p>El ciberbullying es acoso a través de medios digitales como redes sociales, mensajes o chats. Puede incluir insultos, humillaciones, amenazas o difusión de contenido comprometido.</p>
+            </div>
+            
+            <div class="story-card">
+                <h3>Señales de alerta</h3>
+                <ul>
+                    <li>Cambios en el estado de ánimo</li>
+                    <li>Aislamiento social</li>
+                    <li>Baja autoestima</li>
+                    <li>Cambios en el rendimiento escolar</li>
+                    <li>Nerviosismo al usar dispositivos</li>
+                </ul>
+            </div>
+            
+            <button class="btn btn-primary">Descargar guía PDF</button>
+            <button class="btn btn-light" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+        
+        <!-- Modo respiro -->
+        <div id="breathing-screen" class="screen">
+            <h2>Modo Respiro</h2>
+            
+            <div class="breathing-instruction" id="breath-instruction">
+                "Vamos a respirar juntos. Inhala profundo por la nariz durante 4 segundos..."
+            </div>
+            
+            <div class="breathing-circle" id="breathing-circle">
+                Inhala
+            </div>
+            
+            <button class="btn btn-primary" onclick="startBreathingExercise()">Comenzar</button>
+            <button class="btn btn-light" onclick="showScreen('main-menu-screen')">Volver</button>
+        </div>
+    </div>
+    
+    <!-- Barra de navegación -->
+    <div class="nav" id="main-nav" style="display:none;">
+        <div onclick="showScreen('main-menu-screen')">
+            <span class="nav-icon">🏠</span> Inicio
+        </div>
+        <div onclick="showScreen('emergency-screen')">
+            <span class="nav-icon">🆘</span> Ayuda
+        </div>
+        <div onclick="showScreen('community-screen')">
+            <span class="nav-icon">👥</span> Comunidad
+        </div>
+        <div onclick="showScreen('mindroom-screen')">
+            <span class="nav-icon">🧠</span> Mind Room
+        </div>
+    </div>
+
+    <script>
+        // Variables para almacenar datos
+        let currentEmotion = '';
+        let journalEntries = [];
+        let breathingInterval;
+        let isBreathing = false;
+        
+        // Mostrar pantalla específica
+        function showScreen(screenId) {
+            // Mostrar barra de navegación después de comenzar
+            if(screenId !== 'welcome-screen') {
+                document.getElementById('main-nav').style.display = 'flex';
+            }
+            
+            // Ocultar todas las pantallas
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Mostrar la pantalla seleccionada
+            document.getElementById(screenId).classList.add('active');
+            
+            // Detener respiración si está activa
+            if(screenId !== 'breathing-screen' && isBreathing) {
+                stopBreathingExercise();
+            }
+        }
+        
+        // Seleccionar emoción
+        function selectEmotion(emotion) {
+            currentEmotion = emotion;
+            alert(Has seleccionado: ${emotion}. Gracias por compartir cómo te sientes.);
+        }
+        
+        // Guardar entrada del diario
+        function saveJournalEntry() {
+            const text = document.getElementById('journal-entry').value;
+            if(text.trim() !== '') {
+                journalEntries.push({
+                    date: new Date(),
+                    text: text,
+                    emotion: currentEmotion
+                });
+                alert('Entrada guardada con éxito.');
+                document.getElementById('journal-entry').value = '';
+                showScreen('emotion-check-screen');
+            } else {
+                alert('Por favor escribe algo antes de guardar.');
+            }
+        }
+        
+        // Funciones para el chat
+        function startChatWithGuide() {
+            showScreen('chat-screen');
+            // Simular respuesta del guía después de 2 segundos
+            setTimeout(() => {
+                addGuideMessage();
+            }, 2000);
+        }
+        
+        function insertQuickMessage(message) {
+            document.getElementById('chat-input').value = message;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if(message !== '') {
+                // Agregar mensaje del usuario
+                addMessage('Tú', message, 'user-message');
+                input.value = '';
+                
+                // Simular respuesta del guía después de 1 segundo
+                setTimeout(() => {
+                    addGuideMessage();
+                }, 1000);
+            }
+        }
+        
+        function addMessage(author, text, style) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = chat-message ${style};
+            messageDiv.innerHTML = <div class="message-author">${author}</div><p>${text}</p>;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function addGuideMessage() {
+            const responses = [
+                "Hola, soy la psicóloga Laura. Entiendo por lo que estás pasando. ¿Puedes contarme más sobre cómo te sientes?",
+                "Lamento escuchar que estás pasando por esto. No estás solo/a, estoy aquí para ayudarte.",
+                "Lo que estás sintiendo es completamente válido. Juntos podemos encontrar la mejor manera de manejar esta situación.",
+                "He ayudado a muchos jóvenes en situaciones similares. ¿Qué es lo que más te preocupa en este momento?"
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessage('Guía Reboot', randomResponse, 'guide-message');
+        }
+        
+        // Funciones para el modo respiro
+        function startBreathingExercise() {
+            if(isBreathing) return;
+            
+            isBreathing = true;
+            let cycle = 0;
+            const maxCycles = 3;
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breath-instruction');
+            
+            breathingInterval = setInterval(() => {
+                if(cycle >= maxCycles) {
+                    stopBreathingExercise();
+                    instruction.innerHTML = "¡Bien hecho! Has completado el ejercicio de respiración.";
+                    return;
+                }
+                
+                // Inhala (4 segundos)
+                instruction.innerHTML = "Inhala profundo por la nariz durante 4 segundos...";
+                circle.style.transform = 'scale(1.5)';
+                circle.innerHTML = "Inhala";
+                
+                setTimeout(() => {
+                    // Exhala (6 segundos)
+                    instruction.innerHTML = "Exhala lentamente por la boca durante 6 segundos...";
+                    circle.style.transform = 'scale(1)';
+                    circle.innerHTML = "Exhala";
+                    
+                    setTimeout(() => {
+                        cycle++;
+                        if(cycle < maxCycles) {
+                            instruction.innerHTML = "Preparado para la siguiente respiración...";
+                        }
+                    }, 6000);
+                }, 4000);
+            }, 11000); // Total de 11 segundos por ciclo (4 inhala + 6 exhala + 1 pausa)
+        }
+        
+        function stopBreathingExercise() {
+            clearInterval(breathingInterval);
+            isBreathing = false;
+            document.getElementById('breathing-circle').style.transform = 'scale(1)';
+            document.getElementById('breathing-circle').innerHTML = "Inhala";
+        }
+    </script>
+
+
+</body></html>
